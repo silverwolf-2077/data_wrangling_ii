@@ -63,7 +63,40 @@ sw_df =
   )
 ```
 
+# API
 
+Get data using an API
+
+```{r}
+nyc_water_df = 
+  GET("https://data.cityofnewyork.us/resource/ia2d-e54m.csv") |> 
+  content("parsed")
+
+nyc_water_df |> 
+  ggplot(aes(x = year, y = nyc_consumption_million_gallons_per_day)) +
+  geom_point()
+```
+
+Access BRFSS
+
+```{r, eval = FALSE}
+brfss_df = 
+  GET(
+    "https://chronicdata.cdc.gov/api/v3/views/acme-vg9e/query.csv",
+    query = list("app_token" = "hBym4QiQDFerUXPrQwcA4VeP7")
+    ) |> 
+  content("parsed")
+```
+
+Look at Pokemon
+
+```{r}
+poke = 
+  GET("https://pokeapi.co/api/v2/pokemon/1") |> 
+  content()
+
+poke[[2]]
+```
 
 
 

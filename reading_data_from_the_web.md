@@ -54,3 +54,52 @@ sw_df =
     runtime = runtime_vec
   )
 ```
+
+# API
+
+Get data using an API
+
+``` r
+nyc_water_df = 
+  GET("https://data.cityofnewyork.us/resource/ia2d-e54m.csv") |> 
+  content("parsed")
+```
+
+    ## Rows: 65 Columns: 4
+    ## ── Column specification ────────────────────────────────────────────────────────
+    ## Delimiter: ","
+    ## dbl (4): year, new_york_city_population, nyc_consumption_million_gallons_per...
+    ## 
+    ## ℹ Use `spec()` to retrieve the full column specification for this data.
+    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+
+``` r
+nyc_water_df |> 
+  ggplot(aes(x = year, y = nyc_consumption_million_gallons_per_day)) +
+  geom_point()
+```
+
+![](reading_data_from_the_web_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
+Access BRFSS
+
+``` r
+brfss_df = 
+  GET(
+    "https://chronicdata.cdc.gov/api/v3/views/acme-vg9e/query.csv",
+    query = list("app_token" = "hBym4QiQDFerUXPrQwcA4VeP7")
+    ) |> 
+  content("parsed")
+```
+
+Look at Pokemon
+
+``` r
+poke = 
+  GET("https://pokeapi.co/api/v2/pokemon/1") |> 
+  content()
+
+poke[[2]]
+```
+
+    ## [1] 64
